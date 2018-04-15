@@ -5,8 +5,38 @@
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarBackgroundColor": "#118fff",
+    "navigationBarTitleText": "一起读书吧",
+    "navigationBarTextStyle":"white"
+  },
+  "tabBar":{
+    "color": "#9BABBA",
+    "selectedColor": "#495056",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/images/tar-home.png",
+        "selectedIconPath": "static/images/tar-home-on.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "发起",
+        "iconPath": "static/images/tar-about.png",
+        "selectedIconPath": "static/images/tar-about-on.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "动态",
+        "iconPath": "static/images/tar-topic.png",
+        "selectedIconPath": "static/images/tar-topic-on.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
   }
 }
