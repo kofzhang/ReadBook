@@ -1,15 +1,17 @@
 {
-  "pages":[
+  "pages": [
+    "pages/start/start",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/profile/profile"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#118fff",
     "navigationBarTitleText": "一起读书吧",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle": "white"
   },
-  "tabBar":{
+  "tabBar": {
     "color": "#9BABBA",
     "selectedColor": "#495056",
     "borderStyle": "white",
@@ -17,21 +19,21 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "首页",
+        "text": "我的",
         "iconPath": "static/images/tar-home.png",
         "selectedIconPath": "static/images/tar-home-on.png"
       },
       {
         "pagePath": "pages/index/index",
-        "text": "发起",
+        "text": "动态",
         "iconPath": "static/images/tar-about.png",
         "selectedIconPath": "static/images/tar-about-on.png"
       },
       {
         "pagePath": "pages/index/index",
-        "text": "动态",
-        "iconPath": "static/images/tar-topic.png",
-        "selectedIconPath": "static/images/tar-topic-on.png"
+        "text": "书房",
+        "iconPath": "static/images/tar-other.png",
+        "selectedIconPath": "static/images/tar-other-on.png"
       }
     ]
   },

@@ -1,13 +1,59 @@
-<!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+<!-- index.wxml -->
+<view class="mpage {{!ui.tStart? 'withAnimate': ''}}" style="left:0px;width: {{ui.windowWidth}}px;" >
+  <scroll-view bindscroll="" scroll-y style="height: 100%;">
+    <view class="search">
+      <view catchtap="clickAvatarTap" class="avatar">
+        <image src="{{userInfo.avatarUrl}}"></image>
+      </view>
+      <view class="title">
+        <view class="tag">{{userInfo.nickName}}的书房</view>
+      </view>
+     
+    </view>
+    
+
+    <view class="activities">
+      <view class="subtitle">
+        <image src="/static/images/ic_activity.png" mode="aspectFit" />
+        <text>最新活动</text>
+        <space/>
+        <button bindtap="refresh">点击刷新</button>
+      </view>
+
+      <view class="activity" wx:for="{{postsList}}" wx:key="id">
+        <view class="list_header">
+          <view class="list_header_left">
+            <image mode="aspectFill" src="{{item.publisherPic}}" wx:if="publisherPic"></image>
+            <view>{{item.publisherName}}</view>
+          </view>
+          <view class="content-date list_header_right">
+            <image src="/static/images/calendar.png"></image>
+            <text>{{item.pubtime}}</text>
+            <image src="/static/images/comments.png"></image>
+            <text class="">{{item.commentnum}}</text>
+            <image src="/static/images/home-like.png"></image>
+            <text class="">{{item.likenum}}</text>
+          </view>
+        </view>
+        <view class="horizontal">
+          <view class="tag tag_{{item.acttype}}">{{item.acttypename}}</view>
+          <text class="title">{{ item.title }}</text>
+        </view>
+        <image mode="aspectFill" class="photo" src="{{item.actPic}}" wx:if="{{item.actPic}}" data-actid="{{item.id}}" data-pubid='{{item.publisherId}}' bindtap="click_activity"></image>
+        <text class="intro">{{item.content}}</text>
+        <text class="time">有效时间：{{ item.endtime }}</text>
+        <text class="location">活动地点：{{ item.address }}</text>
+
+      </view>
+
+    </view>
+    <view class="loadingmore">
+      <view wx:if="{{!isEmpty}}">
+        <button class="more-button" formType="submit" size="mini" bindtap="loadMore">加载更多...</button>
+      </view>
+      <view class="no-more" wx:if="{{isEmpty}}">---无更多活动---</view>
+    </view>
+    <tab-shadow/>
+  </scroll-view>
 </view>
+
