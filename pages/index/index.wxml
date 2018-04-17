@@ -8,17 +8,39 @@
       <view class="title">
         <view class="tag">{{userInfo.nickName}}的书房</view>
       </view>
-     
+      <view class="icon">
+        <view class="iconfont icon-sousuo icon-css" style="font-size:40rpx"></view>
+      </view>      
     </view>
-    
+    <view class="name">
+      <view class="tag">{{userInfo.nickName}}</view>
+    </view>
+    <view class="line-view">
+      <view class="line"></view>
+    </view>
 
-    <view class="activities">
-      <view class="subtitle">
-        <image src="/static/images/ic_activity.png" mode="aspectFit" />
-        <text>最新活动</text>
-        <space/>
-        <button bindtap="refresh">点击刷新</button>
+    <view class="follow-view">
+      <view class="tag">
+        {{userInfo.follows}}0
+        <view class="tagtext"> 关注</view>
       </view>
+      <view class="tag">
+        {{userInfo.follower}}0
+        <view class="tagtext">关注者</view>
+      </view>
+      <view class="tag">
+        {{userInfo.updating}}0
+        <view class="tagtext">动态</view>
+      </view>
+    </view>
+    <view class="activities">
+     
+      <view class="line"></view>
+    
+      <view class="category" wx:for="{{postsList}}" wx:key="id">
+        
+      </view>
+      
 
       <view class="activity" wx:for="{{postsList}}" wx:key="id">
         <view class="list_header">

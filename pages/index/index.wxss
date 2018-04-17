@@ -47,53 +47,89 @@ page {
   padding: 20rpx 20rpx 0 20rpx;
 }
 
-.search .avatar_r {
-  padding: 20rpx 20rpx 0 20rpx;
-  float: right;
-}
+
 
 .search .avatar image {
   width: 80rpx;
   height: 80rpx;
   border-radius: 50%;
   margin-right: 40rpx;
+  margin-left: 20rpx;
 }
 
-.search .avatar_r image {
-  width: 50rpx;
-  height: 50rpx;
-  border-radius: 50%;
-  margin-right: 40rpx;
-  margin-left: 530rpx;
-}
+
 
 .search .title
 {
-  margin-top: 40rpx;
+  padding-top: 35rpx;
   width:400rpx;
   height:80rpx;
   align-items: center;
-  font-size: 30rpx;
+  font-size: 35rpx;
 }
-.item {
+.search .icon
+{
+  width:190rpx;
   display: flex;
-  align-items: center;
+  flex-direction: row-reverse;
+  flex-wrap: wrap;
+  justify-content: right;
+
+}
+.search .icon .icon-css
+{
+  padding-right:40rpx;
+}
+
+.name
+{
+  padding:50rpx 20rpx 20rpx 40rpx;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: right;
+}
+.name .tag
+{
+  font-size: 40rpx;
+
+  
+}
+.line-view
+{
+  width:100%;
+  
+  display: flex;
+  flex-direction: row;
   justify-content: center;
-  background: white;
-  padding: 60rpx;
-  border-bottom: 20rpx solid #dbdbdb;
 }
-
-.item image {
-  height: 150rpx;
-  width: 150rpx;
-  border-radius: 50%;
-  margin-right: 40rpx;
+.line-view .line
+{
+  width:90%;
+  height:2rpx;
+  background:#eee;
+  
 }
-
-
-
-
+.follow-view
+{
+  padding:20rpx 0rpx;
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.follow-view .tag
+{
+  width:230rpx;
+  color:#0c5da5;
+  font-weight: bold;
+}
+.follow-view .tag .tagtext
+{
+  color:#999;
+  font-weight: normal;
+}
 /*活动详情界面CSS*/
 
 .list_header_left image {
@@ -121,23 +157,14 @@ page {
   border-bottom: 1rpx solid #f4f4f4;
 }
 
-/**/
-
-swiper {
-  height: 380rpx;
-  margin-bottom: 20rpx;
+.activities .line
+{
+  width:100%;
+  height:10rpx;
+  background:#eee;
 }
-
-swiper-item, swiper-item image {
-  width: 100%;
-  height: 300rpx;
-  border-radius: 15rpx;
-  overflow: hidden;
-}
-
 .activities .subtitle {
-  padding: 20rpx 35rpx;
-  border-top: 20rpx solid #f4f4f4;
+  padding: 20rpx 35rpx;  
   background: #fff;
   display: flex;
   flex-direction: row;
