@@ -10,6 +10,7 @@ var that;
 var my_nick = wx.getStorageSync('my_nick')
 var my_sex = wx.getStorageSync('my_sex')
 var my_avatar = wx.getStorageSync('my_avatar')
+var my_studyname=wx.getStorageSync('my_studyname');
 Page({
   
   data: {

@@ -6,14 +6,14 @@
         <image src="{{userInfo.avatarUrl}}"></image>
       </view>
       <view class="title">
-        <view class="tag">{{userInfo.nickName}}的书房</view>
+        <view class="tag">{{my_studyname}}</view>
       </view>
       <view class="icon">
         <view class="iconfont icon-sousuo icon-css" style="font-size:40rpx"></view>
       </view>      
     </view>
     <view class="name">
-      <view class="tag">{{userInfo.nickName}}</view>
+      <view class="tag">{{my_nick}}</view>
     </view>
     <view class="line-view">
       <view class="line"></view>

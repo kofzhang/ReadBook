@@ -19,8 +19,9 @@ App({
     })
     //调用API从本地缓存中获取数据
     try {
-      var value = wx.getStorageSync('user_openid')
+      var value = wx.getStorageSync('user_openid');
       if (value) {
+
       } else {
         console.log('执行login1')
         wx.login({
@@ -37,19 +38,21 @@ App({
                 success: function (userData) {
                   wx.getUserInfo({
                     success: function (result) {
-                      var userInfo = result.userInfo
-                      var nickName = userInfo.nickName
-                      var avatarUrl = userInfo.avatarUrl
-                      var sex = userInfo.gender
+                      var userInfo = result.userInfo;
+                      var nickName = userInfo.nickName;
+                      var avatarUrl = userInfo.avatarUrl;
+                      var sex = userInfo.gender;
                       Bmob.User.logIn(nickName, userData.openid, {
                         success: function (user) {
                           try {
-                            wx.setStorageSync('user_openid', user.get('userData').openid)
-                            wx.setStorageSync('user_id', user.id)
-                            wx.setStorageSync('my_nick', user.get("nickname"))
-                            wx.setStorageSync('my_username', user.get("username"))
-                            wx.setStorageSync('my_sex', user.get("sex"))
-                            wx.setStorageSync('my_avatar', user.get("userPic"))
+                            wx.setStorageSync('user_openid', user.get('userData').openid);
+                            wx.setStorageSync('user_id', user.id);
+                            wx.setStorageSync('my_nick', user.get("nickname"));
+                            wx.setStorageSync('my_username', user.get("username"));
+                            wx.setStorageSync('my_sex', user.get("sex"));
+                            wx.setStorageSync('my_avatar', user.get("userPic"));
+                            wx.setStorageSync('my_studyname', user.get("studyname"));
+                            this.getUserProfile();
                           } catch (e) {
                           }
                           console.log("登录成功");
@@ -64,22 +67,35 @@ App({
                             user.set("userData", userData);
                             user.set('sex', sex);
                             user.set('feednum', 0);
+                            user.set('studyname',nickName+'的书房');
                             user.signUp(null, {
                               success: function (result) {
                                 console.log('注册成功');
                                 try {//将返回的3rd_session存储到缓存中
-                                  wx.setStorageSync('user_openid', user.get('userData').openid)
-                                  wx.setStorageSync('user_id', user.id)
-                                  wx.setStorageSync('my_nick', user.get("nickname"))
-                                  wx.setStorageSync('my_username', user.get("username"))
-                                  wx.setStorageSync('my_sex', user.get("sex"))
-                                  wx.setStorageSync('my_avatar', user.get("userPic"))
+                                  wx.setStorageSync('user_openid', user.get('userData').openid);
+                                  wx.setStorageSync('user_id', user.id);
+                                  wx.setStorageSync('my_nick', user.get("nickname"));
+                                  wx.setStorageSync('my_username', user.get("username"));
+                                  wx.setStorageSync('my_sex', user.get("sex"));
+                                  wx.setStorageSync('my_avatar', user.get("userPic"));
+                                  wx.setStorageSync('my_studyname', user.get("studyname"));
                                 } catch (e) {
                                 }
                               },
                               error: function (userData, error) {
                                 console.log("openid=" + userData);
-                                console.log(error)
+                                console.log(error);
+                              }
+                            });
+                            var Profile=Bmob.Object.extend("Profile");
+                            var profile=new Profile();
+                            profile.set("");
+                            profile.save(null,{
+                              success:function(result){
+                                console.log(result.id);
+                              },
+                              error:function(result,error){
+                                console.log("添加失败");
                               }
                             });
 
@@ -94,30 +110,30 @@ App({
                 }
               });
             } else {
-              console.log('获取用户登录态失败1！' + res.errMsg)
+              console.log('获取用户登录态失败1！' + res.errMsg);
             }
           },
           complete: function (e) {
-            console.log('获取用户登录态失败2！' + e)
+            console.log('获取用户登录态失败2！' + e);
           }
         });
       }
     } catch (e) {
-      console.log("登陆失败")
+      console.log("登陆失败");
     }
     wx.checkSession({
       success: function () {
       },
       fail: function () {
         //登录态过期，重新登录
-        wx.login()
+        wx.login();
       }
     })
 
     // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    var logs = wx.getStorageSync('logs') || [];
+    logs.unshift(Date.now());
+    wx.setStorageSync('logs', logs);
 
     // 登录
     wx.login({
@@ -175,6 +191,28 @@ App({
         }
       });
     }
+  },
+  getUserProfile:function(){
+    var that=this;
+    var Profile=Bmob.Object.extend("Profile");
+    var query=new Bmob.Query(Profile);
+    query.equalTo("user",Bmob.User().current());
+    query.first({
+      success:function(result){
+        console.log("取个人数据");
+        wx.setStorageSync("my_storageCount", result.get("storageCount"));
+        wx.setStorageSync("my_storagePic", result.get("storagePic"));
+        wx.setStorageSync("my_storageSummary", result.get("storageSummary"));
+        wx.setStorageSync("my_reviewCount", result.get("reviewCount"));
+        wx.setStorageSync("my_reviewPic", result.get("reviewPic"));
+        wx.setStorageSync("my_reviewSummary", result.get("reviewSummary"));
+        wx.setStorageSync("my_annotationCount", result.get("annotationCount"));
+        wx.setStorageSync("my_annotationPic", result.get("annotationPic"));
+        wx.setStorageSync("my_annotationSummary", result.get("annotationSummary"));
+      }
+    }
+
+    )
   },
   globalData: {
     userInfo: null
