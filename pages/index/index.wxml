@@ -20,16 +20,16 @@
     </view>
 
     <view class="follow-view">
-      <view class="tag">
-        {{storageInfo.my_followCount}}
+      <view class="tag" catchtap="clickFollowTap">
+        <span class="tagnumber">{{storageInfo.my_followCount}}</span>
         <view class="tagtext"> 关注</view>
       </view>
-      <view class="tag">
-        {{storageInfo.my_followerCount}}
+      <view class="tag" catchtap="clickFollowerTap">
+        <span class="tagnumber">{{storageInfo.my_followerCount}}</span>
         <view class="tagtext">关注者</view>
       </view>
-      <view class="tag">
-        {{storageInfo.my_updatingCount}}
+      <view class="tag" catchtap="clickUpdatingTap">
+        <span class="tagnumber">{{storageInfo.my_updatingCount}}</span>
         <view class="tagtext">动态</view>
       </view>
     </view>
@@ -37,19 +37,44 @@
      
       <view class="line"></view>
     
-      <view class="activity" >
-        <view class="tag">
+      <view class="activity" catchtap="clickStorageTap">
+        <view  class="tag" style="width:120rpx;padding-top:30rpx">
           <span class="tagnumber">{{storageInfo.my_storageCount}}</span>
           <view class="tagtext">总藏书</view>
         </view>
-        <view class="tag">
+        <view class="tag" style="width:350rpx;padding:30rpx 20rpx;text-align:left">
           <span>{{storageInfo.my_storageSummary}}</span>
         </view>
-        <view class="tag">
+        <view class="tag" style="width:130rpx">
           <image src="{{storageInfo.my_storagePic}}"></image>
         </view>
       </view>
 
+<view class="activity" catchtap="clickReviewTap" >
+        <view class="tag" style="width:120rpx;padding-top:30rpx">
+          <span class="tagnumber">{{storageInfo.my_reviewCount}}</span>
+          <view class="tagtext">评论</view>
+        </view>
+        <view class="tag" style="width:350rpx;padding:30rpx 20rpx;text-align:left">
+          <span>{{storageInfo.my_reviewSummary}}</span>
+        </view>
+        <view class="tag" style="width:130rpx">
+          <image src="{{storageInfo.my_reviewPic}}"></image>
+        </view>
+      </view>
+      <view class="activity" catchtap="clickAnnotationTap" >
+        <view class="tag" style="width:120rpx;padding-top:30rpx">
+          <span class="tagnumber">{{storageInfo.my_annotationCount}}</span>
+          <view class="tagtext">读书笔记</view>
+        </view>
+        <view class="tag" style="width:350rpx;padding:30rpx 20rpx;text-align:left">
+          <span>{{storageInfo.my_annotationSummary}}</span>
+        </view>
+        <view class="tag" style="width:130rpx">
+          <image src="{{storageInfo.my_annotationPic}}"></image>
+        </view>
+      </view>
+     
     </view>
     
     <tab-shadow/>

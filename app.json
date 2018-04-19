@@ -3,7 +3,8 @@
     "pages/start/start",
     "pages/index/index",
     "pages/logs/logs",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/follow/follow"
   ],
   "window": {
     "backgroundTextStyle": "light",
