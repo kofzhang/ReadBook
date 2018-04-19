@@ -2,7 +2,8 @@
 import Touches from './utils/Touches.js'
 var Bmob = require("utils/bmob.js");
 var common = require("utils/common.js");
-const __utils = require('utils/util')
+const __utils = require('utils/util');
+
 Bmob.initialize("53bf2d9ed6c3fd7c7146cca79f66523b", "6e2f20f3f4a9d053d1460e957997f99d");
 App({
   version:'v1.0.0',//版本号
@@ -23,7 +24,7 @@ App({
       if (value) {
 
       } else {
-        console.log('执行login1')
+        console.log('执行login1');
         wx.login({
           success: function (res) {
             if (res.code) {
@@ -52,7 +53,32 @@ App({
                             wx.setStorageSync('my_sex', user.get("sex"));
                             wx.setStorageSync('my_avatar', user.get("userPic"));
                             wx.setStorageSync('my_studyname', user.get("studyname"));
-                            this.getUserProfile();
+                            var Profile = Bmob.Object.extend("UserProfile");
+                            var query = new Bmob.Query(Profile);
+                            query.equalTo("user", Bmob.User.current());
+                            query.first({
+                              success: function (result) {
+                                console.log("取个人数据");
+                                wx.setStorageSync("my_storageCount", result.get("storageCount"));
+                                wx.setStorageSync("my_storagePic", result.get("storagePic"));
+                                wx.setStorageSync("my_storageSummary", result.get("storageSummary"));
+                                wx.setStorageSync("my_reviewCount", result.get("reviewCount"));
+                                wx.setStorageSync("my_reviewPic", result.get("reviewPic"));
+                                wx.setStorageSync("my_reviewSummary", result.get("reviewSummary"));
+                                wx.setStorageSync("my_annotationCount", result.get("annotationCount"));
+                                wx.setStorageSync("my_annotationPic", result.get("annotationPic"));
+                                wx.setStorageSync("my_annotationSummary", result.get("annotationSummary"));
+                                wx.setStorageSync("my_followCount", result.get("followCount"));
+                                wx.setStorageSync("my_followerCount", result.get("followerCount"));
+                                wx.setStorageSync("my_updatingCount", result.get("updatingCount"));
+                              },
+                              error: function (result, error) {
+                                console.log("取数据出错" + error.message);
+                              }
+                            }
+
+                            )
+                            
                           } catch (e) {
                           }
                           console.log("登录成功");
@@ -87,15 +113,40 @@ App({
                                 console.log(error);
                               }
                             });
-                            var Profile=Bmob.Object.extend("Profile");
+                            var Profile = Bmob.Object.extend("UserProfile");
                             var profile=new Profile();
-                            profile.set("");
+                            
+                            
+                            profile.set("user", user);
+                            profile.set("annotationCount",0);
+                            profile.set("annotationPic","https://img3.doubanio.com/f/shire/5522dd1f5b742d1e1394a17f44d590646b63871d/pics/book-default-lpic.gif");
+                            profile.set("annotationSummary","您暂时还没有任何读书笔记。");
+                            profile.set("followCount",0);
+                            profile.set("followerCount",0);
+                            profile.set("updatingCount",0);
+                            profile.set("storageCount",0);
+                            profile.set("storagePic","https://img3.doubanio.com/f/shire/5522dd1f5b742d1e1394a17f44d590646b63871d/pics/book-default-lpic.gif");
+                            profile.set("storageSummary","您暂时还没有库存图书。");
+                            profile.set("reviewCount",0);
+                            profile.set("reviewPic","https://img3.doubanio.com/f/shire/5522dd1f5b742d1e1394a17f44d590646b63871d/pics/book-default-lpic.gif");
+                            profile.set("reviewSummary","您暂时还没有任何书评。");
                             profile.save(null,{
                               success:function(result){
-                                console.log(result.id);
+                                wx.setStorageSync("my_annotationCount", profile.get("annotationCount"));
+                                wx.setStorageSync("my_annotationPic", profile.get("annotationPic"));
+                                wx.setStorageSync("my_annotationSummary", profile.get("annotationSummary"));
+                                wx.setStorageSync("my_followCount", profile.get("followCount"));
+                                wx.setStorageSync("my_followerCount", profile.get("followerCount"));
+                                wx.setStorageSync("my_updatingCount", profile.get("updatingCount"));
+                                wx.setStorageSync("my_storageCount", profile.get("storageCount"));
+                                wx.setStorageSync("my_storagePic", profile.get("storagePic"));
+                                wx.setStorageSync("my_storageSummary", profile.get("storageSummary"));
+                                wx.setStorageSync("my_reviewCount", profile.get("reviewCount"));
+                                wx.setStorageSync("my_reviewPic", profile.get("reviewPic"));
+                                wx.setStorageSync("my_reviewSummary", profile.get("reviewSummary"));
                               },
                               error:function(result,error){
-                                console.log("添加失败");
+                                console.log("添加失败"+error.code+error.message);
                               }
                             });
 
@@ -128,39 +179,8 @@ App({
         //登录态过期，重新登录
         wx.login();
       }
-    })
+    });
 
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || [];
-    logs.unshift(Date.now());
-    wx.setStorageSync('logs', logs);
-
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo
-
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }
-            }
-          })
-        }
-      }
-    })
   },
   onShow: function () {
 
@@ -192,28 +212,7 @@ App({
       });
     }
   },
-  getUserProfile:function(){
-    var that=this;
-    var Profile=Bmob.Object.extend("Profile");
-    var query=new Bmob.Query(Profile);
-    query.equalTo("user",Bmob.User().current());
-    query.first({
-      success:function(result){
-        console.log("取个人数据");
-        wx.setStorageSync("my_storageCount", result.get("storageCount"));
-        wx.setStorageSync("my_storagePic", result.get("storagePic"));
-        wx.setStorageSync("my_storageSummary", result.get("storageSummary"));
-        wx.setStorageSync("my_reviewCount", result.get("reviewCount"));
-        wx.setStorageSync("my_reviewPic", result.get("reviewPic"));
-        wx.setStorageSync("my_reviewSummary", result.get("reviewSummary"));
-        wx.setStorageSync("my_annotationCount", result.get("annotationCount"));
-        wx.setStorageSync("my_annotationPic", result.get("annotationPic"));
-        wx.setStorageSync("my_annotationSummary", result.get("annotationSummary"));
-      }
-    }
-
-    )
-  },
+  
   globalData: {
     userInfo: null
   },

@@ -6,18 +6,29 @@ var app = getApp();
 
 var that;
 
-
-var my_nick = wx.getStorageSync('my_nick')
-var my_sex = wx.getStorageSync('my_sex')
-var my_avatar = wx.getStorageSync('my_avatar')
-var my_studyname=wx.getStorageSync('my_studyname');
 Page({
   
   data: {
-    my_nick: my_nick,
-    my_sex: my_sex,
-    my_avatar: my_avatar,
-    userInfo: [],
+    storageInfo:{
+      my_nick:'',
+      my_avatar:'',
+      my_studyname:'',
+      my_followCount:0,
+      my_followerCount:0,
+      my_updatingCount:0,
+      my_storageCount:0,
+      my_storagePic:'',
+      my_storageSummary:'',
+      my_reviewCount:0,
+      my_reviewPic:'',
+      my_reviewSummary:'',
+      my_annotationCount:0,
+      my_annotationPic:'',
+      my_annotationSummary:''
+
+    },
+    
+    
     dialog: false,
 
     ui: {
@@ -59,16 +70,13 @@ Page({
 
   onShow: function (e) {
     this.getAll();
-    
+    this.getStorageInfomation();
     //this.onLoad();
     console.log('加载头像');
     var that = this;
 
-    app.getUserInfo(function (userInfo) {
-      that.setData({
-        userInfo: userInfo
-      })
-    })
+    
+    
     wx.getSystemInfo({
       success: (res) => {
         this.setData({
@@ -78,6 +86,27 @@ Page({
         })
       }
     })
+  },
+  getStorageInfomation:function(){
+    var that=this;
+    this.data.storageInfo.my_nick = wx.getStorageSync('my_nick');
+    this.data.storageInfo.my_avatar = wx.getStorageSync('my_avatar');
+    this.data.storageInfo.my_studyname = wx.getStorageSync('my_studyname');
+    this.data.storageInfo.my_followCount = wx.getStorageSync('my_followCount');
+    this.data.storageInfo.my_updatingCount = wx.getStorageSync('my_updatingCount');
+    this.data.storageInfo.my_storageCount = wx.getStorageSync('my_storageCount');
+    this.data.storageInfo.my_storagePic = wx.getStorageSync('my_storagePic');
+    this.data.storageInfo.my_storageSummary = wx.getStorageSync('my_storageSummary');
+    this.data.storageInfo.my_reviewCount = wx.getStorageSync('my_reviewCount');
+    this.data.storageInfo.my_reviewPic = wx.getStorageSync('my_reviewPic');
+    this.data.storageInfo.my_reviewSummary = wx.getStorageSync('my_reviewSummary');
+    this.data.storageInfo.my_annotationCount = wx.getStorageSync('my_annotationCount');
+    this.data.storageInfo.my_annotationPic = wx.getStorageSync('my_annotationPic');
+    this.data.storageInfo.my_annotationSummary = wx.getStorageSync('my_annotationSummary');
+    
+    that.setData({
+      storageInfo:this.data.storageInfo});
+      
   },
 
   //数据存储
