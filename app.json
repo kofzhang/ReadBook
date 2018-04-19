@@ -4,7 +4,12 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/profile/profile",
-    "pages/follow/follow"
+    "pages/follow/follow",
+    "pages/follower/follower",
+    "pages/review/review",
+    "pages/storage/storage",
+    "pages/updating/updating",
+    "pages/annotation/annotation"
   ],
   "window": {
     "backgroundTextStyle": "light",
