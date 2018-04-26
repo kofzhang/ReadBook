@@ -30,13 +30,13 @@
         "selectedIconPath": "static/images/tar-home-on.png"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/updating/updating",
         "text": "动态",
         "iconPath": "static/images/tar-about.png",
         "selectedIconPath": "static/images/tar-about-on.png"
       },
       {
-        "pagePath": "pages/index/index",
+        "pagePath": "pages/storage/storage",
         "text": "书房",
         "iconPath": "static/images/tar-other.png",
         "selectedIconPath": "static/images/tar-other-on.png"
