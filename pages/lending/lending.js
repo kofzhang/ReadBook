@@ -1,4 +1,4 @@
-// pages/follow/follow.js
+// pages/lending/lending.js
 Page({
 
   /**

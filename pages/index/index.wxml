@@ -20,17 +20,17 @@
     </view>
 
     <view class="follow-view">
-      <view class="tag" catchtap="clickFollowTap">
-        <span class="tagnumber">{{storageInfo.my_followCount}}</span>
-        <view class="tagtext"> 关注</view>
+      <view class="tag" catchtap="clickFriendTap">
+        <span class="tagnumber">{{storageInfo.my_friendCount}}</span>
+        <view class="tagtext">好友</view>
       </view>
-      <view class="tag" catchtap="clickFollowerTap">
-        <span class="tagnumber">{{storageInfo.my_followerCount}}</span>
-        <view class="tagtext">关注者</view>
+      <view class="tag" catchtap="clickLendingTap">
+        <span class="tagnumber">{{storageInfo.my_lendingCount}}</span>
+        <view class="tagtext">借出</view>
       </view>
-      <view class="tag" catchtap="clickUpdatingTap">
-        <span class="tagnumber">{{storageInfo.my_updatingCount}}</span>
-        <view class="tagtext">动态</view>
+      <view class="tag" catchtap="clickBorrowTap">
+        <span class="tagnumber">{{storageInfo.my_borrowingCount}}</span>
+        <view class="tagtext">借入</view>
       </view>
     </view>
     <view class="activities">

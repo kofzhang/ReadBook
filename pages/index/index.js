@@ -13,9 +13,9 @@ Page({
       my_nick:'',
       my_avatar:'',
       my_studyname:'',
-      my_followCount:0,
-      my_followerCount:0,
-      my_updatingCount:0,
+      my_friendCount:0,
+      my_lendingCount:0,
+      my_borrowingCount:0,
       my_storageCount:0,
       my_storagePic:'',
       my_storageSummary:'',
@@ -83,8 +83,9 @@ Page({
     this.data.storageInfo.my_nick = wx.getStorageSync('my_nick');
     this.data.storageInfo.my_avatar = wx.getStorageSync('my_avatar');
     this.data.storageInfo.my_studyname = wx.getStorageSync('my_studyname');
-    this.data.storageInfo.my_followCount = wx.getStorageSync('my_followCount');
-    this.data.storageInfo.my_updatingCount = wx.getStorageSync('my_updatingCount');
+    this.data.storageInfo.my_friendCount = wx.getStorageSync('my_friendCount');
+    this.data.storageInfo.my_lendingCount = wx.getStorageSync('my_lendingCount');
+    this.data.storageInfo.my_borrowingCount = wx.getStorageSync('my_borrowingCount');
     this.data.storageInfo.my_storageCount = wx.getStorageSync('my_storageCount');
     this.data.storageInfo.my_storagePic = wx.getStorageSync('my_storagePic');
     this.data.storageInfo.my_storageSummary = wx.getStorageSync('my_storageSummary');
@@ -111,27 +112,27 @@ Page({
       });
     }
   },
-  clickFollowTap(e) {
+  clickFriendTap(e) {
     if (!this.buttonClicked) {
       util.buttonClicked(this);
       wx.navigateTo({
-        url: '/pages/follow/follow',
+        url: '/pages/friend/friend',
       });
     }
   },
-  clickFollowerTap(e) {
+  clickLendingTap(e) {
     if (!this.buttonClicked) {
       util.buttonClicked(this);
       wx.navigateTo({
-        url: '/pages/follower/follower',
+        url: '/pages/lending/lending',
       });
     }
   },
-  clickUpdatingTap(e) {
+  clickBorrowingTap(e) {
     if (!this.buttonClicked) {
       util.buttonClicked(this);
       wx.navigateTo({
-        url: '/pages/updating/updating',
+        url: '/pages/borrowing/borrowing',
       });
     }
   },
@@ -159,5 +160,8 @@ Page({
       });
     }
   },
+  onPullDownRefresh:function(){
+    wx.stopPullDownRefresh()
+  }
 })
 

@@ -1,4 +1,4 @@
-// pages/follower/follower.js
+// pages/borrowing/borrowing.js
 Page({
 
   /**

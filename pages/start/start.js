@@ -22,9 +22,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    let that = this;
+    if (!wx.getStorageSync("userinfo")) {
+      //是否登录
+      that.isloginindex()
+    }
   },
-
+  isloginindex() {
+    //是否进入首页
+    if (wx.getStorageSync("userinfo")) {
+      console.log("登录")
+    } else {
+      //无信息
+      console.log("否登录")
+      wx.redirectTo({
+        url: '/pages/toLogin/toLogin'
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

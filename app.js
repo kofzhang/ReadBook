@@ -37,8 +37,10 @@ App({
             if (res.code) {
               Bmob.User.requestOpenId(res.code, {
                 success: function (userData) {
-                  wx.getUserInfo({
+                  console.log('1');
+                  wx.getUserInfo({                    
                     success: function (result) {
+                      console.log('2');
                       var userInfo = result.userInfo;
                       var nickName = userInfo.nickName;
                       var avatarUrl = userInfo.avatarUrl;
@@ -68,9 +70,9 @@ App({
                                 wx.setStorageSync("my_annotationCount", result.get("annotationCount"));
                                 wx.setStorageSync("my_annotationPic", result.get("annotationPic"));
                                 wx.setStorageSync("my_annotationSummary", result.get("annotationSummary"));
-                                wx.setStorageSync("my_followCount", result.get("followCount"));
-                                wx.setStorageSync("my_followerCount", result.get("followerCount"));
-                                wx.setStorageSync("my_updatingCount", result.get("updatingCount"));
+                                wx.setStorageSync("my_friendCount", result.get("friendCount"));
+                                wx.setStorageSync("my_lendingCount", result.get("lendingCount"));
+                                wx.setStorageSync("my_borrowingCount", result.get("borrowingCount"));
                               },
                               error: function (result, error) {
                                 console.log("取数据出错" + error.message);
@@ -121,9 +123,9 @@ App({
                             profile.set("annotationCount",0);
                             profile.set("annotationPic","https://img3.doubanio.com/f/shire/5522dd1f5b742d1e1394a17f44d590646b63871d/pics/book-default-lpic.gif");
                             profile.set("annotationSummary","您暂时还没有任何读书笔记。");
-                            profile.set("followCount",0);
-                            profile.set("followerCount",0);
-                            profile.set("updatingCount",0);
+                            profile.set("friendCount",0);
+                            profile.set("lendingCount",0);
+                            profile.set("borrowingCount",0);
                             profile.set("storageCount",0);
                             profile.set("storagePic","https://img3.doubanio.com/f/shire/5522dd1f5b742d1e1394a17f44d590646b63871d/pics/book-default-lpic.gif");
                             profile.set("storageSummary","您暂时还没有库存图书。");
@@ -135,9 +137,9 @@ App({
                                 wx.setStorageSync("my_annotationCount", profile.get("annotationCount"));
                                 wx.setStorageSync("my_annotationPic", profile.get("annotationPic"));
                                 wx.setStorageSync("my_annotationSummary", profile.get("annotationSummary"));
-                                wx.setStorageSync("my_followCount", profile.get("followCount"));
-                                wx.setStorageSync("my_followerCount", profile.get("followerCount"));
-                                wx.setStorageSync("my_updatingCount", profile.get("updatingCount"));
+                                wx.setStorageSync("my_friendCount", profile.get("friendCount"));
+                                wx.setStorageSync("my_lendingCount", profile.get("lendingCount"));
+                                wx.setStorageSync("my_borrowingCount", profile.get("borrowingCount"));
                                 wx.setStorageSync("my_storageCount", profile.get("storageCount"));
                                 wx.setStorageSync("my_storagePic", profile.get("storagePic"));
                                 wx.setStorageSync("my_storageSummary", profile.get("storageSummary"));
@@ -153,6 +155,9 @@ App({
                           }
                         }
                       });
+                    },
+                    error: function(error){
+                      console.log("Error: " + error.code + " " + error.message);
                     }
                   })
                 },
@@ -165,7 +170,7 @@ App({
             }
           },
           complete: function (e) {
-            console.log('获取用户登录态失败2！' + e);
+           
           }
         });
       }
@@ -184,6 +189,32 @@ App({
   },
   onShow: function () {
 
+  },
+  toLogin: function () {
+    // 前往授权登录界面
+            wx.navigateTo({
+              url: '/pages/toLogin/toLogin',
+           })
+    
+  },
+  ready: function () {
+     return Promise((resolve, reject) => {
+                   const userkey = wx.getStorageSync('userkey')
+                   const userId = wx.getStorageSync('userId')
+                   const sessionData = wx.getStorageSync('sessionData')
+       // 检查用户是否具有登陆态
+       if (!userkey || !userId || !sessionData) {
+         // 如果未登录就前往登录界面
+         this.toLogin()
+        
+      } else {
+         // 如果有就只要更改一下Promise，以继续执行后续操作
+                         resolve()
+        
+      }
+      
+    })
+    
   },
   formate_data: function (date) {
     let month_add = date.getMonth() + 1;
