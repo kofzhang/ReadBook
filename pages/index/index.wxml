@@ -28,7 +28,7 @@
         <span class="tagnumber">{{storageInfo.my_lendingCount}}</span>
         <view class="tagtext">借出</view>
       </view>
-      <view class="tag" catchtap="clickBorrowTap">
+      <view class="tag" catchtap="clickBorrowingTap">
         <span class="tagnumber">{{storageInfo.my_borrowingCount}}</span>
         <view class="tagtext">借入</view>
       </view>
